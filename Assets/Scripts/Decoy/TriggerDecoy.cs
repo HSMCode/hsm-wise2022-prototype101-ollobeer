@@ -10,6 +10,9 @@ public class TriggerDecoy : MonoBehaviour
 
     AudioSource audioData;
 
+    // public AudioClip decoySFX;
+    // public AudioSource _audiSource;
+
 
     private void OnTriggerEnter(Collider other){
         Debug.Log(gameObject.name + " touched this " + other.name + " object");

@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
+
+    AudioSource audioData;
+
+
     //Variables
     public int diceNumber;
+    public int maxDiceNumber = 51;
+    public int luckyNumberLength = 8;
+
+    public bool win = false;
+
 
     
-
-    public string winNumberText = "Die Gewinner Nummern sind: ";
-
-    public string youWinText = ". Das bedeutet du hast gewonnen :D";
-
-
-    int[] winningNumbers = new int[3];
 
     // Start is called before the first frame update
     void Start()
@@ -27,40 +29,67 @@ public class Dice : MonoBehaviour
     {
         if (Input.GetKeyDown("d")) {
 
-            
+            //generates a array of Lucky Numbers (length is set on top with the other variables) 
+            int[] winningNumbers = new int[luckyNumberLength];
 
-            winningNumbers [0] = Random.Range(1, 7);
-            // winningNumbers [1] = Random.Range(1, 7);
-            do{
-                winningNumbers [1] = Random.Range(1, 7);
-            }while (winningNumbers[0] == winningNumbers [1]);
+            //fills the array with lucky Numbers and checks for double Numbers
+            for (int i = 0; i < luckyNumberLength; i++){
+                do{
+                    winningNumbers [i] = Random.Range(1, maxDiceNumber);
+                }while (checkForDoubleNumbers(i, winningNumbers)); 
+            }
 
-            // winningNumbers [2] = Random.Range(1, 7);
-            do{
-                winningNumbers [2] = Random.Range(1, 7);
-            }while (winningNumbers[0] == winningNumbers [2] || winningNumbers [1] == winningNumbers[2]);
+            diceNumber = Random.Range(1, maxDiceNumber);
+            Debug.Log("Du hast eine: " + diceNumber + " gewürfelt.");
 
-            diceNumber = Random.Range(1, 7);
-            Debug.Log("Du hast eine: " + diceNumber + " gewürfelt!");
-
-            
-            // if (winningNumbers[0] == diceNumber || winningNumbers[1] == diceNumber || winningNumbers[2] == diceNumber) {
-            //     Debug.Log(winNumberText + winningNumbers[0] +", " + winningNumbers[1] + ", " + winningNumbers[2] + youWinText);
-            // }else {
-            //     Debug.Log(winNumberText + winningNumbers [0] + ", " + winningNumbers[1]+ ", " + winningNumbers[2] + ". Das bedeutet du hast verloren :C");
-            // }
-
-
+            //checks if the user is a winner or a loser and returns a Debug Message 
             for (int i = 0; i < winningNumbers.Length; i++){
-                // Debug.Log(i);
+                //Debug.Log(winningNumbers[i]);
+
+                //if a winning Number was rolled you get a sound and a message
                 if (winningNumbers[i] == diceNumber){
-                    Debug.Log(winNumberText + winningNumbers[0] +", " + winningNumbers[1] + ", " + winningNumbers[2] + youWinText);
-                }else if (i == winningNumbers.Length){
-                    Debug.Log(winNumberText + winningNumbers [0] + ", " + winningNumbers[1]+ ", " + winningNumbers[2] + ". Das bedeutet du hast verloren :C");
+                    Debug.Log("Du hast gewonnen mit der Nummer: " + winningNumbers[i] );
+                    audioData = GetComponent<AudioSource>();
+                    audioData.Play(0);
+                    Debug.Log("Audio played");
+                    win = true;
+                
+                // if you didnt have won you get a message and the lucky Numbers
+                }else if (i == winningNumbers.Length-1 && win == false){
+                    Debug.Log("Du hast leider verloren :C");
+                    Debug.Log("Die Gewinner Nummern sind: ");
+                    returnWinningNumbers(winningNumbers);
                 }
             }
+            //resets win to false
+            win = false;
         }
 
         
+    }
+
+    //checks for Double Numbers 
+    public bool checkForDoubleNumbers(int i, int[]array){
+
+        
+
+        for (int l = 0; l < i; l++) {
+            
+            if (array[l] == array[i]){
+                return true;
+            }
+        }
+        return false;
+
+    }
+    
+    //return a debug message with all lucky Numbers 
+    public void returnWinningNumbers (int []array) {
+
+
+        for (int i = 0; i < array.Length; i++){
+            Debug.Log(array[i]);
+        }
+
     }
 }
