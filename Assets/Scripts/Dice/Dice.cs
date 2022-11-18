@@ -92,4 +92,15 @@ public class Dice : MonoBehaviour
         }
 
     }
+
+
+    public bool checkForWin(int []array, int i){
+        if (array[i] == diceNumber){
+            return true;
+        }else if (i == array.Length-1){
+            return false;
+        }else {
+            return checkForWin(array, i++);
+        }
+    }
 }
