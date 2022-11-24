@@ -9,6 +9,7 @@ public class TriggerGoal : MonoBehaviour
     AudioSource audioData;
     ParticleSystem particle;
 
+
     private void OnTriggerEnter(Collider other){
         Debug.Log(gameObject.name + " hat das Ziel: " + other.name + "erreicht");
 
@@ -26,4 +27,6 @@ public class TriggerGoal : MonoBehaviour
             Debug.Log("start particle");
         }
     }
+
+    
 }

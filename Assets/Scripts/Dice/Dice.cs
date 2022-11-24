@@ -7,6 +7,8 @@ public class Dice : MonoBehaviour
 
     AudioSource audioData;
 
+    ParticleSystem particle;
+
 
     //Variables
     public int diceNumber;
@@ -53,6 +55,11 @@ public class Dice : MonoBehaviour
                     audioData.Play(0);
                     Debug.Log("Audio played");
                     win = true;
+
+                    //Particle
+                    particle = GetComponent<ParticleSystem>();
+                    particle.Play();
+                    Debug.Log("start particle");
                 
                 // if you didnt have won you get a message and the lucky Numbers
                 }else if (i == winningNumbers.Length-1 && win == false){

@@ -5077,6 +5077,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &157625735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157625728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eef5d3ae74a745bfbbc6222baec7c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posX: 0
+  posZ: 0
 --- !u!1 &836730209 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 175294027077635659, guid: 930935124e9fe47239edc8452e53447a, type: 3}
@@ -5112,8 +5126,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecoyCube: {fileID: 332371109228264838, guid: 6e69301aaf4e54efda6c786bcff13b19, type: 3}
+  DecoyCube1: {fileID: 3079208205025296056, guid: 87163466ce8f44dd1a6c4032470ca14f, type: 3}
+  DecoyCube2: {fileID: 5096056678410693403, guid: 636aea3decb9c4c7ba6049e10eaa281c, type: 3}
   spawnPositioX: 20
   spawnPositioZ: 20
+  maxSpawnPositioX: 30
+  maxSpawnPositioZ: 30
   startDelay: 0
   spawnInterval: 7
   spawnAmount: 4
@@ -5196,6 +5214,51 @@ PrefabInstance:
       objectReference: {fileID: 836730209}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79c559acba4b94b18960f475d77399e1, type: 3}
+--- !u!1 &1500948071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1500948073}
+  - component: {fileID: 1500948072}
+  m_Layer: 0
+  m_Name: GenerateGoal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1500948072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500948071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eef5d3ae74a745bfbbc6222baec7c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posX: 0
+  posZ: 0
+--- !u!4 &1500948073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500948071}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1623933273
 GameObject:
   m_ObjectHideFlags: 0
