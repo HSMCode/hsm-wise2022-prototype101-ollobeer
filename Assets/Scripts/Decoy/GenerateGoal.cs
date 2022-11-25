@@ -15,18 +15,23 @@ public class GenerateGoal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //randomly generates a postive position for X and Z
         posX = Random.Range(minSpawnPositionXZ, maxSpawnPositionXZ);
         posZ = Random.Range(minSpawnPositionXZ, maxSpawnPositionXZ);
+
+        //Randomly turns the Numbers negative
+        posX = randomlyTurnNegative(posX);
+        posZ = randomlyTurnNegative(posZ);
        
-        if (isNegative() == true){
-            posX = posX - posX*2;
-        }
+        // if (isNegative() == true){
+        //     posX = posX - posX*2;
+        // }
 
-        if (isNegative() == true){
-            posZ = posZ - posZ*2;
-        }
+        // if (isNegative() == true){
+        //     posZ = posZ - posZ*2;
+        // }
 
+        //sets the startposition for 
         transform.Translate(Mathf.Floor(posX), 0, Mathf.Floor(posZ));   
     }
 
@@ -34,6 +39,15 @@ public class GenerateGoal : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public float randomlyTurnNegative (float pos){
+        if (isNegative() == true){
+            pos = pos - pos*2;
+            return pos;
+        }else {
+            return pos;
+        }
     }
 
     public bool isNegative(){
