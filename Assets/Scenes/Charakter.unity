@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 732162841}
   - component: {fileID: 732162840}
   - component: {fileID: 732162839}
+  - component: {fileID: 732162843}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -219,6 +220,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &732162843
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732162838}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &786020667
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,13 +381,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5356823508505454577, guid: aec6d8d178c944b39ba0c2fe01d29624, type: 3}
+      propertyPath: m_Height
+      value: 3.975552
+      objectReference: {fileID: 0}
+    - target: {fileID: 5356823508505454577, guid: aec6d8d178c944b39ba0c2fe01d29624, type: 3}
+      propertyPath: m_Center.y
+      value: 1.9895089
+      objectReference: {fileID: 0}
+    - target: {fileID: 5356823508505454577, guid: aec6d8d178c944b39ba0c2fe01d29624, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5356823508505454583, guid: aec6d8d178c944b39ba0c2fe01d29624, type: 3}
+      propertyPath: Ground
+      value: 
+      objectReference: {fileID: 732162838}
     - target: {fileID: 5356823508505454583, guid: aec6d8d178c944b39ba0c2fe01d29624, type: 3}
       propertyPath: force.y
-      value: 20
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 8694158465319964059, guid: aec6d8d178c944b39ba0c2fe01d29624, type: 3}
       propertyPath: m_Mass
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8694158465319964059, guid: aec6d8d178c944b39ba0c2fe01d29624, type: 3}
       propertyPath: m_Constraints

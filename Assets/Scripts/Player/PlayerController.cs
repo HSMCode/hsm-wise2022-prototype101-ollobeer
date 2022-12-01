@@ -5,10 +5,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    public GameObject Ground;
+
     public float horizontalInput;
     public float forwardInput;
     public float speed = 10;
     public float turnSpeed = 200;
+    public float gravityScale;
+    public bool isJumping = false;
+
     public Vector3 force;
 
     private Animator _playerAnim;
@@ -40,8 +45,21 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space)){
-            _palyerRb.AddForce(force, ForceMode.Impulse);
-            _playerAnim.SetTrigger("Jump");
+            if (!isJumping){
+                _palyerRb.AddForce(force, ForceMode.Impulse);
+                _playerAnim.SetTrigger("Jump");
+                isJumping = true;
+            }else {
+                _playerAnim.SetTrigger("Jump");
+            }
+        }
+        
+    }
+
+    private void OnTriggerEnter(Collider other){
+
+        if(other.name == Ground.name){
+            isJumping = false;
         }
         
     }
