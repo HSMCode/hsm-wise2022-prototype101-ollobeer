@@ -12,9 +12,13 @@ public class PlayerController : MonoBehaviour
     public float speed = 10;
     public float turnSpeed = 200;
     public float gravityScale;
+    public bool isGrounded = true;
     public bool isJumping = false;
+    public bool isFalling = false;
 
-    public Vector3 force;
+    public float force;
+    public float gravityModifier;
+    public float forceDown = 9.8f;
 
     private Animator _playerAnim;
     private Rigidbody _palyerRb;
@@ -24,6 +28,8 @@ public class PlayerController : MonoBehaviour
     {
         _playerAnim = GetComponent<Animator>();
         _palyerRb = GetComponent<Rigidbody>();
+
+        Physics.gravity *= gravityModifier;
     }
 
     // Update is called once per frame
@@ -44,22 +50,46 @@ public class PlayerController : MonoBehaviour
             _playerAnim.SetBool("Walk", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)){
-            if (!isJumping){
-                _palyerRb.AddForce(force, ForceMode.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded){ 
+            
+            isGrounded = false;
+            isJumping = true;
+            if (isJumping){
                 _playerAnim.SetTrigger("Jump");
-                isJumping = true;
-            }else {
-                _playerAnim.SetTrigger("Jump");
+            }
+        }else {
+            _playerAnim.SetTrigger("Jump");
+        }
+
+        if(Input.GetKeyUp(KeyCode.Space)){
+            isJumping = false;
+            isFalling = true;
+
+            if(isFalling){
+                _playerAnim.SetBool("Fall", true);
             }
         }
         
     }
 
-    private void OnTriggerEnter(Collider other){
+    void FixedUpdate(){
+        if(isJumping){
+            _palyerRb.AddForce(Vector3.up *force, ForceMode.Force);
+        }
+        if (isFalling || isGrounded){
+            _palyerRb.AddForce(Vector3.down * forceDown * _palyerRb.mass);
+        }
+    }
 
-        if(other.name == Ground.name){
-            isJumping = false;
+    private void OnCollisionEnter(Collision collision){
+
+        if (collision.gameObject.CompareTag("Ground")){
+            isGrounded = true;
+
+            if(isFalling){
+                _playerAnim.SetBool("Fall", false);
+                isFalling = false;
+            }
         }
         
     }
