@@ -7,6 +7,7 @@ public class CameraFollow : MonoBehaviour
 
     //variables 
     public GameObject player;
+    public Transform target;
     public Vector3 offset;
 
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset; 
+        transform.position = player.transform.position + offset;
+        transform.LookAt(target);
     }
 }

@@ -5,6 +5,13 @@ using UnityEngine;
 public class PlayerController2 : MonoBehaviour
 {
 
+    /*
+        HA 9.12
+        8 frames to the highest point
+        11 frames Down
+        80% der eigenen Höhe
+    */
+
     public GameObject Ground;
 
     public float horizontalInput;
