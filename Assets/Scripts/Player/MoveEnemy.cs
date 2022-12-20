@@ -4,27 +4,52 @@ using UnityEngine;
 
 public class MoveEnemy : MonoBehaviour
 {
+    private Rigidbody _enemyRb;
+    private GameObject _player;
 
-    //  public Transform Player;
-    //  int MoveSpeed = 4;
+    private EnemiesCounter _enemiesDestroyedCounter;
 
-    public Transform target;
-    public Transform myTransform;
+    [SerializeField] float speed;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
+        _enemyRb = GetComponent<Rigidbody>();
         
+        // make sure to set the tag "Player" on your player character for this to work
+        _player = GameObject.FindWithTag("Player");
+
+
+        //GameObjekt Skript Counter hinzufügen
+        _enemiesDestroyedCounter = GameObject.Find("EnemiesDestroyedCounter").GetComponent<EnemiesCounter>();
+    }
+    
+    void FixedUpdate()
+    {
+        // move the enemy to the vector position of the player
+        _enemyRb.AddForce((_player.transform.position - transform.position).normalized * speed);
+        // Debug.Log("Player: " + _player.transform.position + "Enemy: " + transform.position);
+    }
+    
+    
+    // For debugging we can add gizmos to help visualise depth and distance a bit better
+    void OnDrawGizmosSelected()
+    {
+        if (_player != null)
+        {
+            // Draws a blue line from this transform to the target
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, _player.transform.position);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        // transform.LookAt(Player);
-        // transform.position += transform.forward * MoveSpeed * Time.deltaTime;
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
 
-
-        transform.LookAt(target);
-        transform.Translate(Vector3.forward*5*Time.deltaTime);
+            _enemiesDestroyedCounter.addOne();
+        }
     }
 }

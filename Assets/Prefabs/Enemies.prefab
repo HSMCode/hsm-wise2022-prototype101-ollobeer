@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 7142404583689249551}
   m_Layer: 0
   m_Name: Enemies
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -324,7 +324,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 48
   m_CollisionDetection: 0
 --- !u!65 &7142404583689249549
 BoxCollider:
@@ -352,7 +352,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 9109096138967222565, guid: c1c41fa47dc3d4c54b2d2a6936b4d05d, type: 3}
-  myTransform: {fileID: 7142404583689249550}
+  speed: 5
+  maxDist: 8
+  minDist: 5
 --- !u!1 &7142404583846272325
 GameObject:
   m_ObjectHideFlags: 0
