@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Decoy.unity
     guid: 506c661a35a6241ad8d0d1590dba9649
   - enabled: 1
-    path: Assets/Scenes/Charakter.unity
+    path: Assets/Scenes/Player.unity
     guid: 5749f488bc36d407eb5c530ff2e0ebc6
   m_configObjects: {}

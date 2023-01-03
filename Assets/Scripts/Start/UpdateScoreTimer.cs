@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UpdateScoreTimer : MonoBehaviour
 {
@@ -16,13 +17,10 @@ public class UpdateScoreTimer : MonoBehaviour
     public int addScore = 1;
     public int winScore = 5;
 
-    //gameOver Variables for Score
-    private Text scoreGameOverUI;
-
     // variables for timer
     private Text timerUI;
     public string timerText = "Countdown: ";
-    public float countRemaining = 30f;
+    public float countRemaining = 10f;
     private bool countingDown = true;
 
     // variables for result ui
@@ -31,21 +29,21 @@ public class UpdateScoreTimer : MonoBehaviour
     public string resultWin = "You won!";
 
     // variables for game over
-    public bool gameOver = false;
+    public bool gameOver;
     private bool gameWon;
     private bool gameLost;
-
+    
+    // variables for enemies
+    public int destroyedEnemies;
 
     void Start()
     {
         _gameUI = GameObject.Find("Game");
         _gameOverUI = GameObject.Find("GameOver");
-
+        
         scoreUI = GameObject.Find("Score").GetComponent<Text>();
         timerUI = GameObject.Find("Timer").GetComponent<Text>();
         resultUI = GameObject.Find("Result").GetComponent<Text>();
-
-        scoreGameOverUI = GameObject.Find("ScoreGameOver").GetComponent<Text>();
 
         _gameUI.SetActive(true);
         _gameOverUI.SetActive(false);
@@ -55,17 +53,16 @@ public class UpdateScoreTimer : MonoBehaviour
     {
         CountdownTimer();
 
-        if (gameOver && Input.GetKeyDown("r"))
-        {
-            restartValues();
-            gameOver = false;
-        }
-
         // if(Input.GetKeyDown(KeyCode.Space))
         // {
         //     currentScore += addScore;
         //     scoreUI.text = scoreText + currentScore.ToString();            
         // }
+        
+        if(Input.GetKeyDown(KeyCode.R) && gameOver)
+        {
+            SceneManager.LoadScene(3);
+        }
     }
 
 
@@ -88,8 +85,7 @@ public class UpdateScoreTimer : MonoBehaviour
             }
         }
     }
-
-
+    
 
     private void CheckGameOver()
     {
@@ -99,50 +95,44 @@ public class UpdateScoreTimer : MonoBehaviour
             gameWon = true;
             gameOver = true;
 
-            resultUI.text = resultWin;
-            resultUI.color = Color.green;
+            StartCoroutine(GameOver());
         }
         // GameOver LOST
         else if(currentScore < winScore && !countingDown)
         {
             gameLost = true;
             gameOver = true;
+            
+            StartCoroutine(GameOver());
+        }
+        
+    }
+    
+    // Coroutine, when game over is true. Display UI after x seconds delay
+    private IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(2f);
 
+        if (gameWon)
+        {
+            resultUI.text = resultWin;
+            resultUI.color = Color.green;
+        }
+        else if (gameLost)
+        {
             resultUI.text = resultLost;
             resultUI.color = Color.red;
         }
 
-        scoreGameOverUI.text = scoreText + currentScore.ToString();
-
-        // Change the UI to display the GameOver screen
-        if(gameOver)
-        {
-            _gameUI.SetActive(false);
-            _gameOverUI.SetActive(true);
-        }
+        _gameUI.SetActive(false);
+        _gameOverUI.SetActive(true);
 
     }
-
-    public void addOne()
+    
+    public void AddEnemiesCounter()
     {
-        currentScore += addScore;
-        scoreUI.text = scoreText + currentScore.ToString();
+        destroyedEnemies++;
+        scoreUI.text = scoreText + destroyedEnemies.ToString();   
     }
-
-    private void restartValues()
-    {
-        currentScore = 0;
-        countRemaining = 30f;
-        countingDown = true;
-
-        gameLost = false;
-        gameWon = false;
-
-        _gameUI.SetActive(true);
-        _gameOverUI.SetActive(false);
-
-        scoreUI.text = scoreText + currentScore.ToString();
-    }
-
 
 }
