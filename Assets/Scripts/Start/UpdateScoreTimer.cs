@@ -17,6 +17,8 @@ public class UpdateScoreTimer : MonoBehaviour
     public int addScore = 1;
     public int winScore = 5;
 
+    private Text _scoreGameOverUI;
+
     // variables for timer
     private Text timerUI;
     public string timerText = "Countdown: ";
@@ -44,6 +46,8 @@ public class UpdateScoreTimer : MonoBehaviour
         scoreUI = GameObject.Find("Score").GetComponent<Text>();
         timerUI = GameObject.Find("Timer").GetComponent<Text>();
         resultUI = GameObject.Find("Result").GetComponent<Text>();
+        _scoreGameOverUI = GameObject.Find("ScoreGameOver").GetComponent<Text>();
+
 
         _gameUI.SetActive(true);
         _gameOverUI.SetActive(false);
@@ -90,7 +94,7 @@ public class UpdateScoreTimer : MonoBehaviour
     private void CheckGameOver()
     {
         // GameOver WIN
-        if(currentScore >= winScore)
+        if(destroyedEnemies >= winScore)
         {
             gameWon = true;
             gameOver = true;
@@ -98,7 +102,7 @@ public class UpdateScoreTimer : MonoBehaviour
             StartCoroutine(GameOver());
         }
         // GameOver LOST
-        else if(currentScore < winScore && !countingDown)
+        else if(destroyedEnemies < winScore && !countingDown)
         {
             gameLost = true;
             gameOver = true;
@@ -112,6 +116,8 @@ public class UpdateScoreTimer : MonoBehaviour
     private IEnumerator GameOver()
     {
         yield return new WaitForSeconds(2f);
+
+        _scoreGameOverUI.text = scoreText + destroyedEnemies;
 
         if (gameWon)
         {
